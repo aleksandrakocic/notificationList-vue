@@ -8,7 +8,8 @@
 
          <!-- v-bind: src="" -->
          <!-- <img src="" alt=""> -->
-       
+        <button v-on: click = 'notify()'>ovdeovde</button>
+       {{info}}
       </li>
      
       
@@ -20,27 +21,41 @@
 
 <script>
 export default {
-  name: 'notifications',
-  props: {
-    msg: String,
-    // mozda ovo??
-    notifications: ['notifications'] 
-  },
+    name: 'notifications',
+  // props: {
+  //   msg: String,
+  //   // mozda ovo??
+  //   notifications: ['notifications'] 
+  // },
 
      data() {
          return{
-    
-               info: []
-
-    }
-  },
-
-    mouted () {
-        axios
-           .get('https://api.myjson.com/bins/19wyhe')
-           .then(response => (this.axios = response.data))
+                info: [],
+                notification: '',
+                img: ''
           }
-    };
+      },
+
+      methods: {
+        
+        notify() {
+          this.axios
+           .get('https://api.myjson.com/bins/19wyhe')
+           .then(response => (this.info = response.data.message))
+              console.log(this.response);
+        }
+       
+      }
+}  
+
+    // mouted () { 
+    //     this.axios
+    //        .get('https://api.myjson.com/bins/19wyhe')
+    //        .then(response => (this.info = response.data))
+    //       console.log(this.axios)           
+    // }
+          
+  
 
 //     methods: {
 //            getIcon
@@ -53,7 +68,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.all {
+.all {  
 background:  darkgray;
 height: 100vh;
 }
