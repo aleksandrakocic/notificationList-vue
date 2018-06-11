@@ -1,82 +1,106 @@
 <template>
+  
+  <div class='all' >
+    <div class='d-flex justify-content-center'>
+    <button class='button'
+          v-on:click="seeNotifications">
+    see notifications
+    </button>
+    </div>
 
-  <div class='all d-flex justify-content-center'>
+      <div v-if="loading">
+          loading
+      </div>
 
-    <ul>
-       <li>
-         <p>hello</p>
+      <div class='d-flex justify-content-center'>
 
-         <!-- v-bind: src="" -->
-         <!-- <img src="" alt=""> -->
-        <button v-on: click = 'notify()'>ovdeovde</button>
-       {{info}}
-      </li>
-     
-      
-    </ul>
 
-  </div>
+                <ul>
+
+                  <li
+                     v-for="notification in notifications"
+                     v-bind:key="notification"
+                     v-bind:class="{ 'seen': notification.seen }">
+
+                   <img class='icon'
+                      :src="notification.icon" alt="">
+
+                   {{notification.message}}
+
+                  </li>
+
+               </ul>
+        </div>
+    </div>
+
   
 </template>
 
 <script>
 export default {
-    name: 'notifications',
-  // props: {
-  //   msg: String,
-  //   // mozda ovo??
-  //   notifications: ['notifications'] 
-  // },
+      name: 'notifications',
 
-     data() {
-         return{
-                info: [],
-                notification: '',
-                img: ''
+      data() {
+          return{
+                  notifications: [],
+                  loading: false,
+                  timestamp: ''
           }
       },
 
-      methods: {
-        
-        notify() {
-          this.axios
-           .get('https://api.myjson.com/bins/19wyhe')
-           .then(response => (this.info = response.data.message))
-              console.log(this.response);
-        }
-       
-      }
-}  
+       methods: {
 
-    // mouted () { 
-    //     this.axios
-    //        .get('https://api.myjson.com/bins/19wyhe')
-    //        .then(response => (this.info = response.data))
-    //       console.log(this.axios)           
-    // }
-          
-  
-
-//     methods: {
-//            getIcon
-//     }
-// }
-
+             seeNotifications: function () {
+                this.loading = true;
+                this.axios
+                 .get("https://api.myjson.com/bins/19wyhe")
+                 .then((response)  =>  {
+                  this.loading = false;
+                  this.notifications = response.data;              
+              })
+            }
+        },
+}
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 
 .all {  
-background:  darkgray;
+background: darkgray;
 height: 100vh;
 }
 
-.all ul li{
-  margin-top: 20px;
-  background:black;
+.button{
+  background: black;
+  height: 100px;
+  width: 450px;
+  color: lightblue;
+  font-weight: 800;
+  font-size: 35px;
+  border-radius: 20px;
 
+
+}
+
+.all ul li{
+  margin-top: 40px;
+  padding: 10px;
+  list-style:none ;
+  font-size: 20px;
+  background: lightblue;
+
+}
+
+.icon {
+  height: 40px;
+  width: 40px;
+}
+
+.seen{
+    -webkit-filter: blur(1px); 
+    filter: blur(1px);
 }
 
 </style>

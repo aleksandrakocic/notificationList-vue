@@ -8,6 +8,7 @@
 <script>
 import notifications from './components/notifications.vue'
 
+
 export default {
   name: 'app',
   components: {
@@ -18,6 +19,9 @@ export default {
 
 <style>
 #app {
-color: lightblue;
+    padding-top: 200px;
+    background: darkgray;
+    color: black;
+
 }
 </style>
